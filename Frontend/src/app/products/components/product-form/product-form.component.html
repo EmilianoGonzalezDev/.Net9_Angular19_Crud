@@ -1,1 +1,31 @@
-<p>product-form works!</p>
+<mat-card>
+    <h2>{{ isEditMode ? 'Edit Product' : 'New Product'}}</h2>    
+    <form [formGroup] = "productForm" (ngSubmit)="onSubmit()">
+
+        <mat-form-field class="full-width">
+            <mat-label>Description</mat-label>
+            <input matInput formControlName="description" required />
+            <mat-error *ngIf="productForm.get('description')?.invalid">
+                Description is required (max 100 characters).
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+            <mat-label>Stock</mat-label>
+            <input matInput formControlName="stock"  type="number" required />
+            <mat-error *ngIf="productForm.get('stock')?.invalid">
+                Stock is required and must be 0 or greater.
+            </mat-error>
+        </mat-form-field>
+
+        <div class="form-actions">
+            <button mat-flat-button color="warn" type="submit" [disabled]="productForm.invalid">
+                {{ isEditMode ? 'Update Changes' : 'Add Product'}}
+            </button>
+            <button mat-raised-button color="warn" type="button" (click)="router.navigate(['/'])">
+                Cancel
+            </button>
+        </div>
+             
+    </form>
+</mat-card>

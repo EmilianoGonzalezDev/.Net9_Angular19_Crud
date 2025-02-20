@@ -1,2 +1,51 @@
-<p>product-list works!</p>
-<button mat-raised-button>Basic</button>
+<h2>Product List</h2>
+<button mat-raised-button color="primary" (click)="navigateToForm()">Add Product</button>
+
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" >
+
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let product"> {{product.id}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef> Description </th>
+            <td mat-cell *matCellDef="let product"> {{product.description}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="stock">
+            <th mat-header-cell *matHeaderCellDef> Stock </th>
+            <td mat-cell *matCellDef="let product"> {{product.stock}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> Actions </th>
+            <td mat-cell *matCellDef="let product">
+                <button mat-raised-button (click)="navigateToForm(product.id)">
+                    Edit
+                </button>
+                <button
+                    mat-raised-button 
+                    color="warn"
+                    (click)="deleteProduct(product.id)"
+                >
+                    Delete
+                </button>
+            </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              showFirstLastButtons
+              aria-label="Select page of products"
+    >
+    </mat-paginator>
+
+</div>
+
+  
